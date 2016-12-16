@@ -9,7 +9,7 @@ class Hookable;
 class MessageBus
 {
 	public: 
-		int hook(Hookable* h);
+		int hook(Hookable& h);
 
 		void broadcast(const Message& msg);
 		void send(const Message& msg, int addr);

@@ -4,9 +4,9 @@
 
 #include <algorithm>
 
-int MessageBus::hook(Hookable* h) {
-	h->set_message_bus(this);
-	_hooks.push_back(h);
+int MessageBus::hook(Hookable& h) {
+	h.set_message_bus(this);
+	_hooks.push_back(&h);
 	return _hooks.size() - 1;
 }
 

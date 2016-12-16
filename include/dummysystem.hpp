@@ -15,7 +15,10 @@ class DummySystem : public ThreadedSystem
 			while(true)
 			{
 				if(messages()) {
-					std::cout << _name << " received " << read() << std::endl;
+					const std::string& str = read();
+					if(str == "EXIT_SIGNAL")
+						return;
+					std::cout << _name << " received " << str << std::endl;
 				}
 				else {
 					std::cout << _name << " didn't receive anything" << std::endl;
