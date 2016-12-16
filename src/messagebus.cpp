@@ -4,10 +4,6 @@
 
 #include <algorithm>
 
-MessageBus::~MessageBus() {
-//	std::for_each(_hooks.begin(), _hooks.end(), [](auto i) { delete i; });
-}
-
 int MessageBus::hook(Hookable* h) {
 	h->set_message_bus(this);
 	_hooks.push_back(h);

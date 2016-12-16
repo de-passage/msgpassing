@@ -2,9 +2,9 @@
 #define __GUARD_MESSAGE_BUS_HPP__
 
 #include <vector>
+#include "message.hpp"
 
 class Hookable;
-class Message;
 
 class MessageBus
 {
@@ -13,8 +13,6 @@ class MessageBus
 
 		void broadcast(const Message& msg);
 		void send(const Message& msg, int addr);
-
-		~MessageBus();
 
 	private:
 		std::vector<Hookable*> _hooks;

@@ -1,8 +1,9 @@
 #ifndef __GUARD_HOOKABLE_HPP__
 #define __GUARD_HOOKABLE_HPP__
 
+#include "message.hpp"
+
 class MessageBus;
-class Message;
 
 class Hookable {
 	public:

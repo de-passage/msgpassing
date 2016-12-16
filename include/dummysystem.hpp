@@ -1,24 +1,29 @@
 #ifndef __GUARD_DUMMY_HPP__
 #define __GUARD_DUMMY_HPP__
 
-#include "hookable.hpp"
+#include "threaded_system.hpp"
 #include "message.hpp"
-#include <thread>
+#include <chrono>
 #include <iostream>
 
-class DummySystem : public Hookable, private std::thread
+class DummySystem : public ThreadedSystem
 {
 	public: 
-		DummySystem(const std::string& name) : _name(name) {} 
-		void receive(const Message& m) {
-			const std::string*  str = static_cast<const std::string*>(m.obj);
-			std::cout << _name << " received " << *str << std::endl;
-		}
+		DummySystem(const std::string& name) : _name(name) {}
 
-		~DummySystem() {
-			if(joinable())
-				join();
-		}
+		void run() {
+			while(true)
+			{
+				if(messages()) {
+					std::cout << _name << " received " << read() << std::endl;
+				}
+				else {
+					std::cout << _name << " didn't receive anything" << std::endl;
+				}
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+			}
+		} 
+
 	private:
 		const std::string& _name;
 		
