@@ -16,7 +16,7 @@ static void prep(std::ostream& o) {
 void Logger::run() {
 	while(true) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
-		if(messages()) {
+		while(messages()) {
 			auto m = read(); 
 			if(m == Message::ExitSuccess) {
 				prep(out); out << "Exit signal received" << std::endl;

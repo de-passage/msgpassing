@@ -14,12 +14,14 @@ void SFMLRenderer::run() {
 	shape.setFillColor(sf::Color::Green);
 	sf::Event event;
 	while(true) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
-		if(messages()) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		while(messages()) {
 			if(read().type == Message::Exit) {
 				close();
 				return;
 			}
+			else 
+				send(Message("Renderer received an invalid message"), System::Logger);
 		}
 		while(isOpen() && pollEvent(event)) {
 			if(event.type == sf::Event::Closed)
