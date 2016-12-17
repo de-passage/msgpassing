@@ -2,22 +2,82 @@
 #define __GUARD_MESSAGE_BUS_HPP__
 
 #include <vector>
-#include "message.hpp"
+#include <unordered_map>
 
+template<class Message, class MB>
 class Hookable;
 
-class MessageBus
+template<class Message, class AddressingPolicy> 
+class BasicMessageBus
 {
 	public: 
-		typedef unsigned int AddressType;
+		typedef typename AddressingPolicy::AddressType AddressType;
+		typedef BasicMessageBus<Message, AddressingPolicy> Type;
+		typedef Hookable<Message, Type> HookType;
 
-		AddressType hook(Hookable& h);
+		unsigned int hook(HookType& h);
+		bool hook(HookType&, AddressType, bool (*)() = [](){return false;});
 
 		void broadcast(const Message& msg);
 		void send(const Message& msg, AddressType addr);
 
 	private:
-		std::vector<Hookable*> _hooks;
+		std::vector<HookType*> _hooks;
+		AddressingPolicy policy;
+		
+		unsigned int next_address() const; 
 };
+
+namespace detail {
+	namespace messaging_policies {
+	struct basic {
+		typedef unsigned int AddressType;
+		bool link(unsigned int, AddressType);
+		inline unsigned int dereference(AddressType a) const { return a; }
+	};
+
+	class alias {
+		public:
+			typedef unsigned long AddressType;
+			bool link(unsigned int, AddressType);
+			unsigned int dereference(AddressType) const;
+		private:
+			std::unordered_map<AddressType, unsigned int> aliases;
+	};
+	}
+}
+
+#include <algorithm>
+template<class Message, class Policy>
+unsigned int BasicMessageBus<Message, Policy>::hook(typename BasicMessageBus<Message, Policy>::HookType& h) {
+	h.set_message_bus(this);
+	_hooks.push_back(&h);
+	return _hooks.size() - 1;
+}
+
+template<class Message, class Policy>
+bool BasicMessageBus<Message, Policy>::hook(typename BasicMessageBus<Message, Policy>::HookType& h, typename BasicMessageBus<Message, Policy>::AddressType a, bool(*func)()) {
+	if(policy.link(next_address(), a)) {
+		hook(h);
+		return true;
+	}
+	else
+		return func();
+}
+
+template<class Message, class Policy>
+void BasicMessageBus<Message, Policy>::broadcast(const Message& msg) {
+	std::for_each(_hooks.begin(), _hooks.end(), [&msg](auto i) { if(i) i->receive(msg); });
+}
+
+template<class Message, class Policy>
+void BasicMessageBus<Message, Policy>::send(const Message& msg, typename BasicMessageBus<Message, Policy>::AddressType addr) {
+	_hooks.at(addr)->receive(msg);
+}
+
+template<class Message, class Policy>
+unsigned int BasicMessageBus<Message, Policy>::next_address() const {
+	return _hooks.size();
+}
 
 #endif

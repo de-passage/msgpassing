@@ -3,17 +3,20 @@
 #include "../include/hookable.hpp"
 
 #include <algorithm>
+#include <stdexcept>
 
-MessageBus::AddressType MessageBus::hook(Hookable& h) {
-	h.set_message_bus(this);
-	_hooks.push_back(&h);
-	return _hooks.size() - 1;
-}
+namespace detail {
+	namespace messaging_policies {
+		bool basic::link(unsigned int, basic::AddressType) {
+			return false;
+		}
 
-void MessageBus::broadcast(const Message& msg) {
-	std::for_each(_hooks.begin(), _hooks.end(), [&msg](auto i) { if(i) i->receive(msg); });
-}
+		bool alias::link(unsigned int i, alias::AddressType addr) {
+			return aliases.insert(std::make_pair(addr, i)).second;
+		}
 
-void MessageBus::send(const Message& msg, MessageBus::AddressType addr) {
-	_hooks.at(addr)->receive(msg);
+		unsigned int alias::dereference(alias::AddressType addr) const {
+			return aliases.find(addr)->first; 
+		}
+	}
 }

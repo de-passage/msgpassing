@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-MessageBus::AddressType SystemManager::hook(ThreadedSystem& sys) {
+SystemManager::BusType::AddressType SystemManager::hook(SystemManager::SystemType& sys) {
 	_threads.push_back(&sys);
 	return _bus.hook(sys);
 }

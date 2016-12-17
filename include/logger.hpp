@@ -3,9 +3,9 @@
 
 #include <ostream>
 
-#include "../include/threaded_system.hpp"
+#include "message_bus_aliases.hpp"
 
-class Logger : public ThreadedSystem {
+class Logger : public StandardSystem {
 	public:
 		Logger(std::ostream& out);
 		void run();

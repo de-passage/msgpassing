@@ -1,19 +1,21 @@
 #ifndef __GUARD_SYSTEM_MANAGER_HPP__
 #define __GUARD_SYSTEM_MANAGER_HPP__
 
-#include "threaded_system.hpp"
-#include "messagebus.hpp"
+#include "message_bus_aliases.hpp"
 
 class SystemManager {
 	public: 
+		typedef StandardSystem SystemType;
+		typedef StandardSystem::BusType BusType;
+
 		void start(); 
 		void join(); 
 		void run();
-		MessageBus::AddressType hook(ThreadedSystem&);
+		BusType::AddressType hook(SystemType&);
 
 	private:
-		std::vector<ThreadedSystem*> _threads;
-		MessageBus _bus;
+		std::vector<SystemType*> _threads;
+		BusType _bus;
 }; 
 
 
