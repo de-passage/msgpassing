@@ -1,4 +1,5 @@
 #include "../include/sfmlinputhandler.hpp"
+#include "../include/system.hpp"
 
 void SFMLInputHandler::run() {
 	while(true) {
@@ -7,6 +8,8 @@ void SFMLInputHandler::run() {
 			auto m = read();
 			if(m.type == Message::Exit)
 				return;
+			else 
+				broadcast(Message("Input received"));
 		}
 
 	}

@@ -72,7 +72,7 @@ void BasicMessageBus<Message, Policy>::broadcast(const Message& msg) {
 
 template<class Message, class Policy>
 void BasicMessageBus<Message, Policy>::send(const Message& msg, typename BasicMessageBus<Message, Policy>::AddressType addr) {
-	_hooks.at(addr)->receive(msg);
+	_hooks.at(policy.dereference(addr))->receive(msg);
 }
 
 template<class Message, class Policy>

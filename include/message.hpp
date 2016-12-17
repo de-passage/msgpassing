@@ -19,7 +19,7 @@ struct Message {
 	};
 
 	Message() = delete;
-	constexpr Message(const std::string&);
+	Message(const std::string&);
 	Message(const sf::Event&);
 	constexpr Message(MessageType t, int c) : type(t), code(c) {}
 
