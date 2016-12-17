@@ -7,10 +7,12 @@ class MessageBus;
 
 class Hookable {
 	public:
+		typedef unsigned int AddressType;
 		Hookable();
 		MessageBus* set_message_bus(MessageBus* mb);
 		
-		void send(const Message& msg, int address = -1);
+		void send(const Message& msg, AddressType address);
+		void broadcast(const Message& msg);
 
 		virtual void receive(const Message&) = 0; 
 

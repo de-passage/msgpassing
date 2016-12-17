@@ -3,8 +3,14 @@
 
 #include <ostream>
 
+#include "../include/threaded_system.hpp"
+
 class Logger : public ThreadedSystem {
 	public:
-		Logger(std::ostream&
+		Logger(std::ostream& out);
+		void run();
+	private:
+		std::ostream& out;
+};
 
 #endif

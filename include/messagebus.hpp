@@ -9,10 +9,12 @@ class Hookable;
 class MessageBus
 {
 	public: 
-		int hook(Hookable& h);
+		typedef unsigned int AddressType;
+
+		AddressType hook(Hookable& h);
 
 		void broadcast(const Message& msg);
-		void send(const Message& msg, int addr);
+		void send(const Message& msg, AddressType addr);
 
 	private:
 		std::vector<Hookable*> _hooks;

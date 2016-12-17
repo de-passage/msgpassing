@@ -20,7 +20,7 @@ void SFMLRenderer::run() {
 		}
 		while(isOpen() && pollEvent(event)) {
 			if(event.type == sf::Event::Closed)
-				send("EXIT_SIGNAL");
+				broadcast("EXIT_SIGNAL");
 		}
 		clear();
 		draw(shape);
