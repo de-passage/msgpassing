@@ -7,19 +7,34 @@
 Logger::Logger(std::ostream& out) : out(out) {
 }
 
+static void prep(std::ostream& o) {
+	auto t = std::time(nullptr);
+	auto tm = *std::localtime(&t);
+	o << "[" << std::put_time(&tm, "%H:%M:%S") << "] ";
+}
+
 void Logger::run() {
 	while(true) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		if(messages()) {
-			std::string str = read(); 
-			if(str == "EXIT_SIGNAL") {
-				out << "Exit signal received" << std::endl;
+			auto m = read(); 
+			if(m == Message::ExitSuccess) {
+				prep(out); out << "Exit signal received" << std::endl;
 				return;
 			}
-			else {
-				auto t = std::time(nullptr);
-				auto tm = *std::localtime(&t);
-				out << "[" << std::put_time(&tm, "%H:%M:%S") << "] " << str << std::endl;
+			else if(m == Message::ExitFailure)
+			{
+				prep(out); out << "Fatal error has occured" << std::endl;
+				return;
 			}
+			else if(m.type == Message::Text) {
+				prep(out); out  << m.text << std::endl;
+			}
+			else {
+				prep(out); out << "unexpected message of type: " << m.type << std::endl;
+			}
+			
 		}
 	}
 }
+
