@@ -15,11 +15,12 @@ struct Message {
 	union {
 		int code; 
 		const std::string& text;
-		const sf::Event& event;
+		const sf::Event& input;
 	};
 
 	Message() = delete;
 	constexpr Message(const std::string&);
+	Message(const sf::Event&);
 	constexpr Message(MessageType t, int c) : type(t), code(c) {}
 
 

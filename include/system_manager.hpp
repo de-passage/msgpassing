@@ -11,7 +11,7 @@ class SystemManager {
 		void start(); 
 		void join(); 
 		void run();
-		BusType::AddressType hook(SystemType&);
+		BusType::AddressType hook(SystemType&, BusType::AddressType);
 
 	private:
 		std::vector<SystemType*> _threads;

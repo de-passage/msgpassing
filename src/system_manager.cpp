@@ -2,9 +2,9 @@
 
 #include <algorithm>
 
-SystemManager::BusType::AddressType SystemManager::hook(SystemManager::SystemType& sys) {
+SystemManager::BusType::AddressType SystemManager::hook(SystemManager::SystemType& sys, BusType::AddressType add) {
 	_threads.push_back(&sys);
-	return _bus.hook(sys);
+	return _bus.hook(sys, add);
 }
 
 void SystemManager::start() {
