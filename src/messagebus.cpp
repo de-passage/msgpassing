@@ -16,7 +16,7 @@ namespace detail {
 		}
 
 		unsigned int alias::dereference(alias::AddressType addr) const {
-			return aliases.find(addr)->first; 
+			return aliases.at(addr); 
 		}
 	}
 }
