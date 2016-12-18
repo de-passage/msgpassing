@@ -19,7 +19,7 @@ class Hookable {
 		BusType* _msgbus;
 };
 
-#include "messagebus.hpp"
+//#include "messagebus.hpp"
 #include <algorithm>
 
 template<class Message, class MessageBus>

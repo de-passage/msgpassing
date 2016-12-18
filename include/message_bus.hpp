@@ -1,0 +1,5 @@
+#ifndef __GUARD_TEMPLATE_MESSAGE_BUS__
+#define __GUARD_TEMPLATE_MESSAGE_BUS__
+
+
+#endif 

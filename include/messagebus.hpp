@@ -2,7 +2,7 @@
 #define __GUARD_MESSAGE_BUS_HPP__
 
 #include <vector>
-#include <unordered_map>
+//#include "messaging_policies.hpp"
 
 template<class Message, class MB>
 class Hookable;
@@ -27,25 +27,6 @@ class BasicMessageBus
 		
 		unsigned int next_address() const; 
 };
-
-namespace detail {
-	namespace messaging_policies {
-	struct basic {
-		typedef unsigned int AddressType;
-		bool link(unsigned int, AddressType);
-		inline unsigned int dereference(AddressType a) const { return a; }
-	};
-
-	class alias {
-		public:
-			typedef unsigned long AddressType;
-			bool link(unsigned int, AddressType);
-			unsigned int dereference(AddressType) const;
-		private:
-			std::unordered_map<AddressType, unsigned int> aliases;
-	};
-	}
-}
 
 #include <algorithm>
 template<class Message, class Policy>
