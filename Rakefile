@@ -57,7 +57,7 @@ def resolve_obj_source_file obj
 	SRC.find { |e| e =~ /#{o}#{CPP_FILE_REGEX}/ } 
 end
 
-# Returns a list of files included in the file
+# Returns a list of header files included in the given file
 def all_hpp_files cpp
 	ret = []
 	File.open(cpp) do |f|
@@ -71,13 +71,25 @@ def all_hpp_files cpp
 	ret.select { |f| f =~ reg }.map { |f| (HEADER_PATH + f).to_s }
 end
 
+# Build a list of all dependencies for an object file, including
+# build directory structure, associated source file and infinitely
+# nested include directives
 def all_obj_dependencies obj
 	cpp = resolve_obj_source_file(obj)
 	# Build a list of hpp files 
 	hpp = all_hpp_files(cpp)
-	# Go one level deeper excluding those done already
-	# deep1 = hpp.each do |h| all_hpp_files(h) - hpp end
-	# repeat until nothing comes out
+	loop do 
+		# Go one level deeper excluding those done already
+		new_files = []
+		hpp.each do |h| 
+			# We don't want to process twice the same file 
+			# to avoid infinite loops
+			new_files += (all_hpp_files(h) - hpp - new_files)
+		end
+		# repeat until nothing comes out
+		break if new_files == []
+		hpp += new_files
+	end
 	[OBJ_STRUCT] + hpp + [cpp]#
 end
 
@@ -120,10 +132,6 @@ rule OBJ_EXTENSION => proc { |obj| all_obj_dependencies(obj) } do |t|
 	sh "#{COMPILER} #{FLAGS} -I#{HEADER_DIRECTORY} #{COMPILATION_OPTIONS} -c #{t.prerequisites[-1]} -o #{t.name}"
 end
 
-rule CPP_FILE_REGEX => proc { |cpp| all_hpp_files(cpp) }
-
-rule HPP_FILE_REGEX => proc { |hpp| all_hpp_files(hpp) }
-
 desc "Remove all object files"
 task :clean do 
 	rm_f OBJ
@@ -132,12 +140,4 @@ end
 desc "Clean all object files and remove the executable"
 task :purge => :clean do
 	rm_f EXEC_PATH
-end
-
-desc "Print the compilation status"
-task :status do |t|
-end
-
-task :hello do |t|
-	puts all_hpp_files()
 end
