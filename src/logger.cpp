@@ -1,4 +1,4 @@
-#include "../include/logger.hpp"
+#include <logger.hpp>
 
 #include <chrono>
 #include <ctime>
@@ -38,3 +38,6 @@ void Logger::run() {
 	}
 }
 
+static void foo()
+{
+}

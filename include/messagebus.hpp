@@ -2,7 +2,7 @@
 #define __GUARD_MESSAGE_BUS_HPP__
 
 #include <vector>
-//#include "messaging_policies.hpp"
+//#include <messaging_policies.hpp>
 
 template<class Message, class MB>
 class Hookable;

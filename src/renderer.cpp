@@ -1,7 +1,7 @@
-#include "../include/renderer.hpp"
+#include <renderer.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../include/system.hpp"
+#include <system.hpp>
 
 SFMLRenderer::SFMLRenderer(const sf::VideoMode& vm, const sf::String& n, sf::Uint32 s) : sf::RenderWindow(vm, n, s)
 {

@@ -1,11 +1,11 @@
 #include <algorithm>
 #include <vector>
 
-#include "../include/system_manager.hpp"
-#include "../include/logger.hpp"
-#include "../include/renderer.hpp"
-#include "../include/sfmlinputhandler.hpp"
-#include "../include/system.hpp"
+#include <system_manager.hpp>
+#include <logger.hpp>
+#include <renderer.hpp>
+#include <sfmlinputhandler.hpp>
+#include <system.hpp>
 
 #include <iostream>
 

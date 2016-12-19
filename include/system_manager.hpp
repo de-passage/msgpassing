@@ -1,7 +1,7 @@
 #ifndef __GUARD_SYSTEM_MANAGER_HPP__
 #define __GUARD_SYSTEM_MANAGER_HPP__
 
-#include "message_bus_aliases.hpp"
+#include <message_bus_aliases.hpp>
 
 class SystemManager {
 	public: 

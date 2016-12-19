@@ -1,4 +1,4 @@
-#include "../include/message.hpp"
+#include <message.hpp>
 
 const Message Message::ExitSuccess = Message(Message::Exit, 0);
 

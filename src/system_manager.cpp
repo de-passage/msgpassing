@@ -1,4 +1,4 @@
-#include "../include/system_manager.hpp"
+#include <system_manager.hpp>
 
 #include <algorithm>
 

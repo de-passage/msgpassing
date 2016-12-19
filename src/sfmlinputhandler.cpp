@@ -1,5 +1,5 @@
-#include "../include/sfmlinputhandler.hpp"
-#include "../include/system.hpp"
+#include <sfmlinputhandler.hpp>
+#include <system.hpp>
 
 void SFMLInputHandler::run() {
 	while(true) {

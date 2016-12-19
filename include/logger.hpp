@@ -3,7 +3,7 @@
 
 #include <ostream>
 
-#include "message_bus_aliases.hpp"
+#include <message_bus_aliases.hpp>
 
 class Logger : public StandardSystem {
 	public:

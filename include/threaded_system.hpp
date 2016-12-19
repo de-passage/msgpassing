@@ -1,7 +1,7 @@
 #ifndef __GUARD_THREADED_SYSTEM_HPP__
 #define __GUARD_THREADED_SYSTEM_HPP__
 
-#include "hookable.hpp"
+#include <hookable.hpp>
 #include <thread>
 #include <queue>
 

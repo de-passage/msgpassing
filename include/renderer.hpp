@@ -1,7 +1,7 @@
 #ifndef __GUARD_RENDERER_HPP__
 #define __GUARD_RENDERER_HPP__
 
-#include "message_bus_aliases.hpp"
+#include <message_bus_aliases.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
