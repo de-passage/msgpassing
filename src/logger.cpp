@@ -37,7 +37,3 @@ void Logger::run() {
 		}
 	}
 }
-
-static void foo()
-{
-}
