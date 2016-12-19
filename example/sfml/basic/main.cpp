@@ -3,8 +3,8 @@
 
 #include <system_manager.hpp>
 #include <logger.hpp>
-#include <renderer.hpp>
-#include <sfmlinputhandler.hpp>
+#include <sfml/renderer.hpp>
+#include <sfml/input_handler.hpp>
 #include <system.hpp>
 
 #include <iostream>

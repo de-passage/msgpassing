@@ -90,7 +90,7 @@ def all_obj_dependencies obj
 		break if new_files == []
 		hpp += new_files
 	end
-	[OBJ_STRUCT] + hpp + [cpp]#
+	OBJ_STRUCT + hpp + [cpp]#
 end
 
 ####################################################
@@ -98,6 +98,8 @@ end
 # 		Tasks
 #
 ###################################################
+
+task :default => :build
 
 desc "Compile the files and build the executable"
 task :build => OBJ + [BINARY_DIRECTORY] do

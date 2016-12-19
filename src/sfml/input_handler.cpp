@@ -1,4 +1,4 @@
-#include <sfmlinputhandler.hpp>
+#include <sfml/input_handler.hpp>
 #include <system.hpp>
 
 void SFMLInputHandler::run() {
