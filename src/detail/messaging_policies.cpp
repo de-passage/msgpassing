@@ -1,4 +1,4 @@
-#include <messaging_policies.hpp>
+#include <detail/messaging_policies.hpp>
 
 namespace detail {
 	namespace messaging_policies {

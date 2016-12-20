@@ -102,7 +102,9 @@ end
 task :default => :build
 
 desc "Compile the files and build the executable"
-task :build => OBJ + [BINARY_DIRECTORY] do
+task :build => EXEC_PATH 
+
+file EXEC_PATH => OBJ + [BINARY_DIRECTORY] do
 	sh "#{COMPILER} #{FLAGS} #{LINKER_OPTIONS} -o #{EXEC_PATH} #{OBJ.join(" ")} #{LINK}"
 end
 
