@@ -16,18 +16,8 @@ IDE.for_target(:release) do
 	IDE.linker.options << "-pthread"
 end
 
-class AR < Tools::Base
-	def initialize
-		super(:archive_manager)
-	end
-
-	def command files, out
-		["ar", "-rcs", *out, *files] 
-	end
-end
-
-IDE.for_target(:lib) do 
-	IDE.executable_name = "libmsgparsing.a"
+IDE.for_target(:lib) do
+	IDE.binary_name = "libmsgparsing.a"
 	IDE.linker = Tools::ArchiveManager::Ar
 	IDE.target_prefix = false
 	IDE.binary_directory= "lib"
